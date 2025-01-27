@@ -1,12 +1,13 @@
 const User = require("../models/Users.js");
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 exports.signUpUser = (req, res, next) => {
     bcrypt
       .hash(req.body.password, 10)
       .then((hash) => {
         const user = new User({
-          email: req.body.email,
+          name: req.body.name,
           password: hash,
         });
         user
@@ -18,7 +19,7 @@ exports.signUpUser = (req, res, next) => {
 };
 
 exports.loginUser = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  User.findOne({ name: req.body.name })
     .then((user) => {
       if (user === null) {
         res.status(401).json({ message: "Paire login/mot de passe incorrecte" });

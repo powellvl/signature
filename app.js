@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const reservation = require("./models/Reservation.js");
 const user = require("./models/Users.js");
 const reservationRoutes = require("./routes/reservation.js");
+const userRoutes = require("./routes/user.js");
 
 const app = express();
 

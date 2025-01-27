@@ -1,23 +1,25 @@
 const Reservation = require("../models/Reservation.js");
 
-exports.getAllReservations = (req, res, next) => {
+exports.getAllReservation = (req, res, next) => {
     Reservation.find()
         .then((reservations) => res.status(200).json(reservations))
         .catch((error) => res.status(400).json({ error }));
 };
 
-exports.createOneReservation = (req, res, next) => {
-    const reservation = new Reservation({
-        ...req.body,
-    });
-    reservation
-        .save()
-        .then(() =>
-            res
-                .status(201)
-                .json({ message: "La réservation vient d'être créée !" })
-        )
-        .catch((error) => res.status(400).json({ error: error }));
+exports.createOneReservation = async (req, res) => {
+    try {
+        const reservation = new Reservation({
+            date: req.body.date,
+            tableNumber: req.body.tableNumber,
+            clientName: req.body.clientName,
+            numberOfPeople: req.body.numberOfPeople,
+        });
+
+        const savedReservation = await reservation.save();
+        res.status(201).json(savedReservation);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 };
 
 exports.getOneReservation = (req, res, next) => {

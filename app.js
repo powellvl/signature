@@ -26,7 +26,8 @@ app.use("/api/user", userRoutes);
 
 mongoose
     .connect(
-        "mongodb+srv://luca:HHlCDyIQSVlhPb0d@cluster0.ldok2.mongodb.net/signature?retryWrites=true&w=majority",
+        // "mongodb+srv://luca:azeazeaze@cluster0.ldok2.mongodb.net/signature",
+        "mongodb+srv://luca:azeazeaze@cluster0.kyumz.mongodb.net/signature?retryWrites=true&w=majority&appName=Cluster0",
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,

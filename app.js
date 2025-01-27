@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const userRoutes = require("./routes/user.js");
 const app = express();
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -16,6 +17,8 @@ app.use((req, res, next) => {
   );
   next(); // L'autorisation des différentes méthodes HHTP
 });
+
+app.use("/api/user", userRoutes);
 
 mongoose
   .connect(

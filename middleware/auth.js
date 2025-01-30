@@ -1,26 +1,28 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/Users");
 
-module.exports = (req, res, next) => {
+exports.auth = async (req, res, next) => {
   try {
-    const authorizationHeader = req.headers.authorization;
-
-    if (!authorizationHeader) {
-      res.status(401).json({ message: "Pas de jetons d'authentification fourni" });
-    } else {
-      // On split le token car il est composé de Bearer avant
-      const token = req.headers.authorization.split(" ")[1];
-      const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
-      const userId = decodedToken.userId;
-
-      // l'objet req/request est transmis aux routes qui vont être appelées
-      // on va donc créer un objet ici auth avec comme info l'id
-      req.auth = {
-        userId: userId,
-      };
-      // Si tout va bien, on passe au code suivant avec next
-      next();
-    }
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.SECRET_HASH);
+    const userId = decodedToken.userId;
+    req.auth = { userId };
+    next();
   } catch (error) {
-    res.status(401).json({ error });
+    res.status(401).json({ error: "Non autorisé" });
   }
+};
+
+exports.checkRole = (roles) => {
+  return async (req, res, next) => {
+    try {
+      const user = await User.findById(req.auth.userId);
+      if (!user || !roles.includes(user.role)) {
+        return res.status(403).json({ message: "Accès non autorisé" });
+      }
+      next();
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  };
 };

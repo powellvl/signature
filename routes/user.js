@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userCtrl = require("./../controller/userController.js");
-// const auth = require("./../middlewares/auth.js");
+const auth = require("./../middleware/auth.js");
 
 // router.get("/",  logementsCtrl.getAllHousing);
 // router.post("/", auth, logementsCtrl.createHousing);

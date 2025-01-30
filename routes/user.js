@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userCtrl = require("../controller/userController.js");
+const userCtrl = require("./../controller/userController.js");
 // const auth = require("./../middlewares/auth.js");
 
 // router.get("/",  logementsCtrl.getAllHousing);

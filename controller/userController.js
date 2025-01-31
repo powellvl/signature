@@ -9,6 +9,7 @@ exports.signUpUser = (req, res, next) => {
       const user = new User({
         name: req.body.name,
         password: hash,
+        role: req.body.role || "user", // rôle par défaut si non spécifié
       });
       user
         .save()
@@ -36,9 +37,12 @@ exports.loginUser = (req, res, next) => {
             } else {
               res.status(200).json({
                 userId: user._id,
-                token: jwt.sign({ userId: user._id }, process.env.SECRET_HASH, {
-                  expiresIn: "24h",
-                }),
+                role: user.role,
+                token: jwt.sign(
+                  { userId: user._id, role: user.role },
+                  process.env.SECRET_HASH,
+                  { expiresIn: "24h" }
+                ),
               });
             }
           })
@@ -46,4 +50,40 @@ exports.loginUser = (req, res, next) => {
       }
     })
     .catch((error) => res.status(500).json({ error }));
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.deleteOne({ _id: req.params.id });
+    res.status(200).json({ message: "Utilisateur supprimé" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  try {
+    await User.updateOne({ _id: req.params.id }, { ...req.body });
+    res.status(200).json({ message: "Utilisateur mis à jour" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getOneUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };

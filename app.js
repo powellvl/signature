@@ -24,6 +24,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/reservation", reservationRoutes);
+app.use("/api/dishe", require("./routes/dish"));
 
 mongoose
   .connect(
@@ -44,5 +46,8 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Route Swagger UI
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 module.exports = app;

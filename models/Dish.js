@@ -7,9 +7,13 @@ const dishSchema = mongoose.Schema(
             required: true,
         },
         type: {
-            type: Number,
+            type: String,
+            enum: ['entrée', 'plat', 'dessert'],
             required: true,
-        },
+        }
+    },
+    {
+        timestamps: true
     }
 );
 

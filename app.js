@@ -5,6 +5,7 @@ const user = require("./models/Users.js");
 const reservationRoutes = require("./routes/reservation.js");
 const userRoutes = require("./routes/user.js");
 const dishRoutes = require("./routes/dish.js");
+const orderRoutes = require("./routes/order.js");
 require("dotenv").config();
 
 const app = express();
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 app.use("/api/user", userRoutes);
 app.use("/api/reservation", reservationRoutes);
 app.use("/api/dish", dishRoutes);
+app.use("/api/order", orderRoutes);
 
 mongoose
   .connect(
@@ -42,6 +44,7 @@ mongoose
 app.use("/api/reservation", require("./routes/reservation"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/dish", require("./routes/dish"));
+app.use("/api/order", require("./routes/order"));
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");

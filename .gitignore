@@ -4,8 +4,6 @@ package-lock.json
 app.js
 
 # Environment variables
-.env
-.env.local
 
 # Logs
 logs

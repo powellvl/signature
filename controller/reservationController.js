@@ -10,7 +10,7 @@ const createOneReservation = async (req, res) => {
   const reservation = new Reservation({
     date: req.body.date,
     tableNumber: req.body.tableNumber,
-    clientTime: req.body.clientTime,
+    clientName: req.body.clientName,
     numberOfPeople: req.body.numberOfPeople,
     // Add other reservation fields based on your Reservation model
   });
@@ -39,7 +39,7 @@ const updateOneReservation = async (req, res) => {
   const updatedData = {
     date: req.body.date,
     tableNumber: req.body.tableNumber,
-    clientTime: req.body.clientTime,
+    clientName: req.body.clientName,
     numberOfPeople: req.body.numberOfPeople,
     // Add other reservation fields as needed
   };

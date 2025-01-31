@@ -51,10 +51,4 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Route Swagger UI
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const port = process.env.PORT || 3000; // Si tu n'as pas de variable d'environnement PORT, il écoute sur le port 3000
-
-app.listen(port, () => {
-  console.log(`Serveur en ligne sur le port ${port}`);
-});
-
 module.exports = app;

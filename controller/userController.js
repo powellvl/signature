@@ -2,6 +2,10 @@ const User = require("../models/Users.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+// User.collection
+//   .dropIndex("pseudo_1")
+//   .then(() => console.log("Index pseudo_1 supprimé"))
+//   .catch((err) => console.error("Erreur suppression index:", err));
 exports.signUpUser = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)

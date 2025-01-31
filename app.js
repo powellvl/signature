@@ -4,6 +4,7 @@ const reservation = require("./models/Reservation.js");
 const user = require("./models/Users.js");
 const reservationRoutes = require("./routes/reservation.js");
 const userRoutes = require("./routes/user.js");
+const dishRoutes = require("./routes/dish.js");
 require("dotenv").config();
 
 const app = express();
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/reservation", reservationRoutes);
-app.use("/api/dishe", require("./routes/dish"));
+app.use("/api/dish", dishRoutes);
 
 mongoose
   .connect(
